@@ -1,9 +1,9 @@
 const bcrypt = require("bcryptjs")
 const {sign} = require("jsonwebtoken")
 const {UserInputError} = require("apollo-server")
-const { validateRegistrationInput, validateLoginInput } = require("../../../util/validate")
-const { SECRET, checkAuth } = require("../../../util/check_token")
-const user = require("../../../models/User")
+const { validateRegistrationInput, validateLoginInput } = require("../../util/validate")
+const { SECRET, checkAuth } = require("../../util/check_token")
+const user = require("../../models/User")
 
 function generateToken(user){
     return sign({
@@ -18,7 +18,7 @@ function generateToken(user){
 
 module.exports = {
 
-    Mutation:{
+    Mutation: {
 
         async userRegistration(_, {first_name, last_name, password, confirm_password, email}){
             const {errors, valid} = validateRegistrationInput(first_name, last_name, password, confirm_password, email)
@@ -43,7 +43,7 @@ module.exports = {
         }
     },
 
-    Query : {
+    Query: {
 
         async getAllUsers(_, {}, context){
             const {id} = await checkAuth(context)

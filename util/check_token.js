@@ -28,7 +28,7 @@ const checkAuth = async function(context){
     }
 }
 
-export default{
+module.exports = {
     checkAuth,
     SECRET
 }

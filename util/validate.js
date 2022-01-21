@@ -1,4 +1,4 @@
-const validateRegistrationInput = function(first_name, last_name, password, confirm_password, email){
+module.exports.validateRegistrationInput = (first_name, last_name, password, confirm_password, email) => {
 
     let errors = {}
     if(!first_name){
@@ -27,7 +27,7 @@ const validateRegistrationInput = function(first_name, last_name, password, conf
     }
 }
 
-const validateLoginInput = function(first_name, last_name, password){
+module.exports.validateLoginInput = (first_name, last_name, password) => {
 
     let errors = {}
     if(!first_name){
@@ -47,9 +47,4 @@ const validateLoginInput = function(first_name, last_name, password){
         errors : errors,
         valid: Object.keys(errors).length < 0
     }
-}
-
-export default {
-    validateRegistrationInput,
-    validateLoginInput
 }

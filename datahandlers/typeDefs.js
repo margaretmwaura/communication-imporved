@@ -1,6 +1,6 @@
-import gpl from 'apollo-server'
+const { gql } = require('apollo-server');
 
-module.exports = gpl`
+module.exports = gql `
 
     type User {
         id : ID!
@@ -8,6 +8,14 @@ module.exports = gpl`
         last_name : String!
         email : String!
         password : String!
+    }
+
+    type Query{
+        getAllUsers:[User]
+    }
+
+    type Mutation {
+        userRegistration(first_name:String!, last_name:String!, password:String!, confirm_password:String!, email:String!): User!      
     }
 
 `
