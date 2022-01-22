@@ -20,7 +20,7 @@ module.exports = {
 
     Mutation: {
 
-        async userRegistration(_, {first_name, last_name, password, confirm_password, email}){
+        async userRegistration(_, {first_name, last_name, password, confirm_password, email}, context){
             const {errors, valid} = validateRegistrationInput(first_name, last_name, password, confirm_password, email)
 
             if(!valid){
