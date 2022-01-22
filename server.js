@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const typeDefs = require('./datahandlers/typeDefs');
 const resolvers = require('./datahandlers/resolvers');
 
-// const {MONGODB } = require('./config');
+const {MONGODB } = require('./config');
 
 const server = new ApolloServer({
     typeDefs,
@@ -13,14 +13,14 @@ const server = new ApolloServer({
 });
 
 
-mongoose.connect("mongodb://localhost:27017/learning-mongo", 
+mongoose.connect(MONGODB, 
 {   
     useUnifiedTopology: true, 
     useNewUrlParser: true,
     useFindAndModify: false })
         .then(() => {
             console.log('You are connected to the database')
-            return server.listen({port: 6000})
+            return server.listen({port: 6001})
         })
         .then(res => {
             console.log(`Server running at ${res.url}`)
