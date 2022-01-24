@@ -27,15 +27,11 @@ module.exports.validateRegistrationInput = (first_name, last_name, password, con
     }
 }
 
-module.exports.validateLoginInput = (first_name, last_name, password) => {
+module.exports.validateLoginInput = (first_name, password) => {
 
     let errors = {}
     if(!first_name){
         errors.first_name = "First Name is required"
-    }
-
-    if(!last_name){
-        errors.last_name = "First Name is required"
     }
 
     if(!password) {

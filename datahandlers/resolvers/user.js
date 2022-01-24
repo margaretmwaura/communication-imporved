@@ -23,7 +23,6 @@ module.exports = {
         async userRegistration(_, {first_name, last_name, password, confirm_password, email}, context){
             const {errors, valid} = validateRegistrationInput(first_name, last_name, password, confirm_password, email)
 
-            console.log(errors)
             if(!valid){
                 throw new UserInputError('Errors', errors)
             }
@@ -34,15 +33,47 @@ module.exports = {
 
             const newest_user = await new_user.save();
 
-            console.log(newest_user)
-
             const token = generateToken(newest_user)
 
-            return{
+            return {
                 ...newest_user._doc,
+                id: newest_user._id,
                 message : "User created successfully",
                 token
             }
+        },
+
+        async userLogin(_, {first_name , password}, context){
+
+            const {errors, valid} = validateLoginInput(first_name, password)
+
+            if(!valid){
+                throw new UserInputError('Errors', errors)
+            }
+
+            let loggingUser = await user.findOne({first_name})
+
+            if(!loggingUser){
+                throw new UserInputError('There is no user with that name', errors)
+            }
+
+            let passwordMatch = await bcrypt.compare(password, loggingUser.password)
+
+            if(!passwordMatch){
+                throw new UserInputError('You entered the wrong password', errors)
+            }
+
+            let token = generateToken(loggingUser)
+
+            console.log(loggingUser._doc)
+
+            return {
+                ...loggingUser._doc,
+                id: loggingUser._id,
+                message : "User Logged successfully",
+                token
+            }
+
         }
     },
 
