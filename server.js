@@ -13,7 +13,7 @@ const server = new ApolloServer({
 });
 
 
-mongoose.connect(MONGODB, 
+mongoose.connect("mongodb://localhost:27017/communication", 
 {   
     useUnifiedTopology: true, 
     useNewUrlParser: true,

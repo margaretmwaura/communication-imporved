@@ -23,7 +23,7 @@ module.exports.validateRegistrationInput = (first_name, last_name, password, con
 
     return {
         errors : errors,
-        valid: Object.keys(errors).length < 0
+        valid: Object.keys(errors).length <= 0
     }
 }
 
@@ -45,6 +45,6 @@ module.exports.validateLoginInput = (first_name, last_name, password) => {
 
     return {
         errors : errors,
-        valid: Object.keys(errors).length < 0
+        valid: Object.keys(errors).length <= 0
     }
 }

@@ -1,6 +1,6 @@
 const {AuthenticationError} = require('apollo-server')
 const JWT = require("jsonwebtoken")
-const user = require('./../models/User')
+const {user} = require("communication-imroved-models")
 const SECRET = "Authorizing"
 
 const checkAuth = async function(context){

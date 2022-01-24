@@ -3,7 +3,7 @@ const {sign} = require("jsonwebtoken")
 const {UserInputError} = require("apollo-server")
 const { validateRegistrationInput, validateLoginInput } = require("../../util/validate")
 const { SECRET, checkAuth } = require("../../util/check_token")
-const user = require("../../models/User")
+const {user} = require("communication-imroved-models")
 
 function generateToken(user){
     return sign({
@@ -23,20 +23,23 @@ module.exports = {
         async userRegistration(_, {first_name, last_name, password, confirm_password, email}, context){
             const {errors, valid} = validateRegistrationInput(first_name, last_name, password, confirm_password, email)
 
+            console.log(errors)
             if(!valid){
                 throw new UserInputError('Errors', errors)
             }
 
-            password = bcrypt.hash(password, 12)
+            password = await bcrypt.hash(password, 12)
 
-            const new_user = new user({irst_name, last_name, password, email})
+            const new_user = new user({first_name, last_name, password, email})
 
             const newest_user = await new_user.save();
+
+            console.log(newest_user)
 
             const token = generateToken(newest_user)
 
             return{
-                user : newest_user,
+                ...newest_user._doc,
                 message : "User created successfully",
                 token
             }
