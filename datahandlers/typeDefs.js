@@ -2,6 +2,8 @@ const { gql } = require('apollo-server');
 
 module.exports = gql `
 
+    scalar Datetime
+
     type User {
         id : ID!
         first_name : String!
@@ -15,6 +17,7 @@ module.exports = gql `
         id : ID!
         body : String!
         userId : String!
+        createdAt : Datetime!
     }
 
     type Mutation {

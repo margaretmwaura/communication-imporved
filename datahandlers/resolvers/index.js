@@ -1,5 +1,6 @@
 const userResolvers = require('./user')
 const chatResolvers = require('./chat')
+const {Datetime} = require('./datetime')
 
 module.exports = {
 
@@ -11,6 +12,7 @@ module.exports = {
     Query: {
        ...userResolvers.Query,
        ...chatResolvers.Query
-    }
+    },
 
+    Datetime : Datetime
 }
