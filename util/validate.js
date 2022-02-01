@@ -1,6 +1,21 @@
-module.exports.validateRegistrationInput = (first_name, last_name, password, confirm_password, email) => {
+const {user} = require("communication-imroved-models")
+
+module.exports.validateRegistrationInput = async (first_name, last_name, password, confirm_password, email) => {
 
     let errors = {}
+
+    let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+    if (!email.match(regexEmail)) {
+        errors.email_format = "email does not have the correct email format"
+    }
+
+    const existing_user = await user.findOne({email : email})
+
+    if(existing_user){
+        errors.email_used = "Email has already been used"
+    }
+
     if(!first_name){
         errors.first_name = "First Name is required"
     }

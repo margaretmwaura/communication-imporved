@@ -21,7 +21,7 @@ module.exports = {
     Mutation: {
 
         async userRegistration(_, {first_name, last_name, password, confirm_password, email}, context){
-            const {errors, valid} = validateRegistrationInput(first_name, last_name, password, confirm_password, email)
+            const {errors, valid} = await validateRegistrationInput(first_name, last_name, password, confirm_password, email)
 
             if(!valid){
                 throw new UserInputError('Errors', errors)
@@ -80,7 +80,7 @@ module.exports = {
     Query: {
 
         async getAllUsers(_, {}, context){
-            const {id} = await checkAuth(context)
+            // const {id} = await checkAuth(context)
             try{
                 const users = user.find({});
                 return users
